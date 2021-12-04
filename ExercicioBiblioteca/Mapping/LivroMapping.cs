@@ -1,0 +1,25 @@
+﻿using ExercicioBiblioteca.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExercicioBiblioteca.Mapping
+{
+    public class LivroMapping : IEntityTypeConfiguration<Livro>
+    {
+        public void Configure(EntityTypeBuilder<Livro> builder)
+        {
+            builder.HasKey(x => x.Codigo);
+            builder.Property(x => x.Descricao).HasColumnType("VARCHAR(60)").IsRequired();
+            builder.Property(x => x.ISBN).IsRequired();
+            builder.Property(x => x.AnoLancamento).IsRequired();
+            builder.Property(x => x.CodigoEditora).IsRequired(false);
+            builder.ToTable("livros");
+            builder.HasOne(x => x.Autor).WithMany().HasForeignKey(x => x.CodigoAutor);
+        }
+    }
+}
