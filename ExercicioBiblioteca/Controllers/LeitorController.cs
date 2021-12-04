@@ -3,10 +3,7 @@ using ExercicioBiblioteca.InputModel;
 using ExercicioBiblioteca.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ExercicioBiblioteca.Controllers
@@ -22,13 +19,15 @@ namespace ExercicioBiblioteca.Controllers
             _bibliotecaDbContext = bibliotecaDbContext;
         }
 
+        #region HTTP_GET
         [HttpGet]
         public async Task<IActionResult> Listar()
         {
             return Ok(await _bibliotecaDbContext.Leitores.ToListAsync());
         }
+        #endregion
 
-
+        #region HTTP_PUT
         [HttpPut]
         public async Task<IActionResult>Atualizar(AtualizarLeitorInput dadosEntrada)
         {
@@ -46,8 +45,9 @@ namespace ExercicioBiblioteca.Controllers
 
             return Ok(leitor);
         }
+        #endregion
 
-
+        #region HTTP_POST
         [HttpPost]
         public async Task<IActionResult> CadastrarLeitor(LeitorInput dadosEntrada)
         {
@@ -75,8 +75,9 @@ namespace ExercicioBiblioteca.Controllers
                     }
                 );
         }
+        #endregion
 
-
+        #region HTTP_DELETE
         [HttpDelete]
         public async Task<IActionResult> Deletar(int codigo)
         {
@@ -89,6 +90,6 @@ namespace ExercicioBiblioteca.Controllers
 
             return Ok("Leitor deletado com sucesso!");
         }
-
+        #endregion
     }
 }

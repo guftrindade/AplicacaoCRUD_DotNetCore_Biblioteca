@@ -21,6 +21,7 @@ namespace ExercicioBiblioteca.Controllers
             _bibliotecaDbContext = bibliotecaDbContext;
         }
 
+        #region Métodos_HTTP_GET
         [HttpGet("listar-emprestimo")]
         public async Task<IActionResult> Listar()
         {
@@ -29,7 +30,16 @@ namespace ExercicioBiblioteca.Controllers
                             .ToListAsync());
         }
 
+        [HttpGet("listar-item-emprestimos")]
+        public async Task<IActionResult> ListarItensEmprestimos()
+        {
+            return Ok(await _bibliotecaDbContext.ItensEmprestimos.ToListAsync());
+        }
 
+
+        #endregion
+
+        #region Métodos_HTTP_POST
         [HttpPost("cadastrar-emprestimo")]
         public async Task<IActionResult> CadastrarEmprestimo(EmprestimoInput dadosEntrada)
         {
@@ -49,12 +59,7 @@ namespace ExercicioBiblioteca.Controllers
                             numeroEmprestimoGerado = emprestimo.Numero
                         });
         }
-
-        [HttpGet("listar-item-emprestimos")]
-        public async Task<IActionResult> ListarItensEmprestimos()
-        {
-            return Ok(await _bibliotecaDbContext.ItensEmprestimos.ToListAsync());
-        }
+       
 
         [HttpPost("cadastrar-item-emprestimo")]
         public async Task<IActionResult> CadastrarItensEmprestimo(ItemEmprestimoInput dadosEntrada)
@@ -76,5 +81,6 @@ namespace ExercicioBiblioteca.Controllers
 
             return NotFound("Livro não encontrado!");
         }
+        #endregion
     }
 }
